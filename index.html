@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IP and Email Extraction Tools</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+			<a class="navbar-brand" href="#">By Achraf</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link" href="#" onclick="showHome()">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#" onclick="showIp()">IP Extraction Tool</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#" onclick="showEmail()">Email Extraction Tool</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Contact Us</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+  <center>
+	<main class="container my-5" id="home">
+		<div class="row">
+			<div class="col-md-6">
+				<h1 class="mb-4">IP and Email Extraction Tools</h1>
+				<p class="lead">Hi there! My name is Achraf and I'm the creator of this site. Here, you can find two powerful tools for extracting IP addresses and email addresses from text or URLs.</p>
+				<p>The IP Extraction Tool allows you to extract the IP addresses from any text or URLs you input. This can be useful for cybersecurity professionals, webmasters, or anyone who needs to quickly identify IP addresses.</p>
+				<p>The Email Extraction Tool allows you to extract email addresses from text or URLs. This can be useful for marketing professionals, recruiters, or anyone who needs to collect email addresses from a large amount of text or web pages.</p>
+				<p>Both tools are easy to use and completely free! Simply navigate to the tool you need from the navigation bar above and follow the instructions on the page.</p>
+			</div>
+			<div class="col-md-6">
+				<img src="https://via.placeholder.com/500x500" alt="Placeholder image" class="img-fluid">
+			</div>
+		</div>
+	</main>
+  <div id="ip-extraction" style="display: none;">
+  <h2>Extract IPs</h2>
+  <p>Paste your text containing IP addresses into the box below:</p>
+  <textarea id="input-ip" class="form-control" rows="10"></textarea>
+  <br>
+  <button class="btn btn-primary btn-lg" onclick="extractIps()">Extract IPs</button>
+  <br><br>
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <p><strong>Result:</strong></p>
+      <textarea id="output-ip" class="form-control" rows="10" readonly></textarea>
+      <p><strong>Count:</strong> <span id="count-ip">0</span></p>
+    </div>
+  </div>
+</div>
+<div id="email-extraction" style="display: none;">
+  <h2>Extract Email Addresses</h2>
+  <p>Paste your text containing email addresses into the box below:</p>
+  <textarea id="input-email" class="form-control" rows="10"></textarea>
+  <br>
+  <button class="btn btn-primary btn-lg" onclick="extractEmails()">Extract Email Addresses</button>
+  <br><br>
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <p><strong>Result:</strong></p>
+      <textarea id="output-email" class="form-control" rows="10" readonly></textarea>
+      <p><strong>Count:</strong> <span id="count-email">0</span></p>
+    </div>
+  </div>
+</div>
+</center>
+	<footer class="bg-light py-3">
+		<div class="container">
+			<p class="text-center">&copy; 2023 Achraf. All rights reserved.</p>
+		</div>
+	</footer>
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+  <script>
+  
+  function showIp() {
+    document.getElementById("ip-extraction").style.display = "block";
+    document.getElementById("email-extraction").style.display = "none";
+    document.getElementById("home").style.display = "none";
+
+  }
+
+  function showEmail() {
+    document.getElementById("ip-extraction").style.display = "none";
+    document.getElementById("email-extraction").style.display = "block";
+    document.getElementById("home").style.display = "none";
+
+  }
+  function showHome() {
+    document.getElementById("ip-extraction").style.display = "none";
+    document.getElementById("email-extraction").style.display = "none";
+    document.getElementById("home").style.display = "block";
+
+  }
+  function extractIps() {
+    var input = document.getElementById("input-ip").value;
+    var regex = /\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}/g;
+    var ips = input.match(regex);
+    var output = document.getElementById("output-ip");
+    var count = document.getElementById("count-ip");
+    ips = ips.filter(function(item, pos) {
+    return ips.indexOf(item) == pos;
+    });
+    output.value = ips.join("\n");
+    count.innerText = ips.length;
+  }
+
+  function extractEmails() {
+    var input = document.getElementById("input-email").value;
+    var regex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}/g;
+    var emails = input.match(regex);
+    var output = document.getElementById("output-email");
+    var count = document.getElementById("count-email");
+    emails = emails.filter(function(item, pos) {
+    return emails.indexOf(item) == pos;
+    });
+    output.value = emails.join("\n");
+    count.innerText = emails.length;
+  }
+
+</script>
+</body>
+</html>
