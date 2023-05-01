@@ -5,6 +5,42 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Add custom CSS -->
+	<style>
+		body {
+			background-color: #F2F2F2;
+			font-family: Arial, sans-serif;
+      
+		}
+
+		h1 {
+			margin-top: 50px;
+			margin-bottom: 30px;
+			text-align: center;
+			font-weight: bold;
+			color: #212529;
+		}
+
+		.form-group label {
+			font-size: 1.2rem;
+			font-weight: bold;
+			color: #212529;
+		}
+
+		.form-control {
+			border: none;
+			border-radius: 0;
+			box-shadow: none;
+			padding: 20px;
+			font-size: 1.2rem;
+			color: #212529;
+			background-color: #F8F9FA;
+			resize: none;
+      width: 90%;
+		}
+
+		
+	</style>
 </head>
 <body>
 	<header>
@@ -23,6 +59,12 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#" onclick="showEmail()">Email Extraction Tool</a>
+					</li>
+          <li class="nav-item">
+						<a class="nav-link" href="#" onclick="showSplit()">Split Email Tool</a>
+					</li>
+          <li class="nav-item">
+						<a class="nav-link" href="#" onclick="emailClean()">Remove Diplicate</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" target="_blank" href="https://t.me/Achraf_Abiwi">Contact Us</a>
@@ -46,12 +88,31 @@
 			</div>
 		</div>
 	</main>
+  <div class="container" id="split" style="display: none;">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>News Section</h1>
+				<form>
+					<div class="form-group">
+						<label for="split-line">Split Line Textarea:</label>
+						<textarea class="form-control" id="split-line" rows="3"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="split-number">Split into:</label>
+						<input type="number" class="form-control" id="split-number" value="1">
+					</div>
+				</form>
+				<button type="button" class="btn btn-primary" onclick="splitText()">Split Text</button>
+				<div id="result"></div>
+			</div>
+		</div>
+	</div>
   <div id="ip-extraction" style="display: none;">
   <h2>Extract IPs</h2>
   <p>Paste your text containing IP addresses into the box below:</p>
   <textarea id="input-ip" class="form-control" rows="10"></textarea>
   <br>
-  <button class="btn btn-primary btn-lg" onclick="extractIps()">Extract IPs</button>
+  <button class="btn btn-primary mx-2 rounded-pill" onclick="extractIps()">Extract IPs</button>
   <br><br>
   <div class="row">
     <div class="col-md-8 mx-auto">
@@ -66,7 +127,7 @@
   <p>Paste your text containing email addresses into the box below:</p>
   <textarea id="input-email" class="form-control" rows="10"></textarea>
   <br>
-  <button class="btn btn-primary btn-lg" onclick="extractEmails()">Extract Email Addresses</button>
+  <button class="btn btn-primary mx-2 rounded-pill" onclick="extractEmails()">Extract Email Addresses</button>
   <br><br>
   <div class="row">
     <div class="col-md-8 mx-auto">
@@ -76,6 +137,28 @@
     </div>
   </div>
 </div>
+<div class="container mt-5" id="email-clean" style="display: none;">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Drop email list </h2><button  class="btn float-right btn-success" onclick="copyText()">Copy 
+		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+			  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+			  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+		  </svg>
+		  </button>
+          <br>
+          <textarea id="text" class="form-control" rows="10"></textarea>
+          <br>
+          <button class="btn btn-primary btn-block" onclick="shuffleLines()">Shuffle Lines</button>
+          <br>
+          <button class="btn btn-danger btn-block" onclick="removeDuplicateLines()">Remove Duplicate Lines</button>
+           <br>
+		  <button class="btn btn-success btn-block" onclick="validateEmails()">Validate Emails</button>
+			<br>
+          <p id="line-count"></p>
+        </div>
+      </div>
+    </div>
 </center>
 	<footer class="bg-light py-3">
 		<div class="container">
@@ -87,11 +170,22 @@
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
   <script>
-  
+    function showSplit() {
+    document.getElementById("ip-extraction").style.display = "none";
+    document.getElementById("email-extraction").style.display = "none";
+    document.getElementById("home").style.display = "none";
+    document.getElementById("split").style.display = "block";
+    document.getElementById("email-clean").style.display = "none";
+
+
+  }
+
   function showIp() {
     document.getElementById("ip-extraction").style.display = "block";
     document.getElementById("email-extraction").style.display = "none";
     document.getElementById("home").style.display = "none";
+    document.getElementById("split").style.display = "none";
+    document.getElementById("email-clean").style.display = "none";
 
   }
 
@@ -99,12 +193,24 @@
     document.getElementById("ip-extraction").style.display = "none";
     document.getElementById("email-extraction").style.display = "block";
     document.getElementById("home").style.display = "none";
+    document.getElementById("split").style.display = "none";
+    document.getElementById("email-clean").style.display = "none";
 
   }
   function showHome() {
     document.getElementById("ip-extraction").style.display = "none";
     document.getElementById("email-extraction").style.display = "none";
     document.getElementById("home").style.display = "block";
+    document.getElementById("split").style.display = "none";
+    document.getElementById("email-clean").style.display = "none";
+
+  }
+  function emailClean() {
+    document.getElementById("ip-extraction").style.display = "none";
+    document.getElementById("email-extraction").style.display = "none";
+    document.getElementById("home").style.display = "none";
+    document.getElementById("split").style.display = "none";
+    document.getElementById("email-clean").style.display = "block";
 
   }
   function extractIps() {
@@ -141,7 +247,78 @@
 	  // Clear input textarea
 	  document.getElementById("input-email").value = "";
   }
+  function splitText() {
+			var splitLine = document.getElementById("split-line").value;
+			var splitNumber = document.getElementById("split-number").value;
+			var lines = splitLine.split('\n');
+			var result = '';
+			var count = 1;
+			var textareaHTML = '<div class="form-group"><label for="textarea">Textarea {{count}}:</label><textarea class="form-control" id="textarea{{count}}" rows="3"></textarea></div>';
+			var i = 0;
 
+			while (i < lines.length) {
+				var linesPerTextarea = Math.ceil((lines.length - i) / splitNumber);
+				var line = lines.slice(i, i + linesPerTextarea).join('\n');
+				result += line + '\n';
+				count++;
+				i += linesPerTextarea;
+			}
+
+			for (var j = count; j <= splitNumber; j++) {
+				var textarea = textareaHTML.replace(/{{count}}/g, j);
+				result += textarea;
+			}
+
+			document.getElementById("result").innerHTML = result;
+		}
+    function shuffleLines() {
+        let text = document.getElementById("text").value;
+        let lines = text.split("\n");
+        lines = shuffleArray(lines);
+        document.getElementById("text").value = lines.join("\n");
+      }
+      
+      function copyText() {
+        let outputText = document.getElementById("text");
+        outputText.select();
+        document.execCommand("copy");
+      }
+      
+      function removeDuplicateLines() {
+        let text = document.getElementById("text").value;
+        let lines = text.split("\n").map(line => line.trim());
+        lines = removeDuplicates(lines);
+        document.getElementById("text").value = lines.join("\n");
+		document.getElementById("line-count").innerHTML = "Number of lines: " + lines.length;
+
+      }
+      
+      function countLines() {
+        let text = document.getElementById("text").value;
+        let lines = text.split("\n");
+        document.getElementById("line-count").innerHTML = "Number of lines: " + lines.length;
+      }
+      
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+      
+      function removeDuplicates(array) {
+        return [...new Set(array)];
+      }
+      function validateEmails() {
+		  let inputText = document.getElementById("text").value;
+		  let validEmails = inputText.match(/\b[\w\.-]+@gmail\.com\b/gim);
+		  document.getElementById("text").value = validEmails ? validEmails.join("\n") : "";
+		  document.getElementById("line-count").innerHTML = validEmails ? `Line count: ${validEmails.length}` : "";
+	 }
+      // Event listeners
+      document.getElementById("text").addEventListener("input", countLines);
 </script>
 </body>
 </html>
+
