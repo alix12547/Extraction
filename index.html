@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,21 +7,12 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <!-- Add custom CSS -->
-	<style>
+<style>
 		body {
 			background-color: #F2F2F2;
 			font-family: Arial, sans-serif;
       
 		}
-
-		h1 {
-			margin-top: 50px;
-			margin-bottom: 30px;
-			text-align: center;
-			font-weight: bold;
-			color: #212529;
-		}
-
 		.form-group label {
 			font-size: 1.2rem;
 			font-weight: bold;
@@ -31,7 +23,6 @@
 			border: none;
 			border-radius: 0;
 			box-shadow: none;
-			padding: 20px;
 			font-size: 1.2rem;
 			color: #212529;
 			background-color: #F8F9FA;
@@ -41,7 +32,7 @@
 
 		
 	</style>
-</head>
+  </head>
 <body>
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light" >
@@ -55,16 +46,10 @@
 						<a class="nav-link" href="#" onclick="showHome()">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#" onclick="showIp()">IP Extraction Tool</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#" onclick="showEmail()">Email Extraction Tool</a>
+						<a class="nav-link" href="#" onclick="showIp()">Extraction Tool</a>
 					</li>
           <li class="nav-item">
 						<a class="nav-link" href="#" onclick="showSplit()">Split Email Tool</a>
-					</li>
-          <li class="nav-item">
-						<a class="nav-link" href="#" onclick="emailClean()">Remove Diplicate</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" target="_blank" href="https://t.me/Achraf_Abiwi">Contact Us</a>
@@ -107,58 +92,97 @@
 			</div>
 		</div>
 	</div>
-  <div id="ip-extraction" style="display: none;">
-  <h2>Extract IPs</h2>
-  <p>Paste your text containing IP addresses into the box below:</p>
-  <textarea id="input-ip" class="form-control" rows="10"></textarea>
-  <br>
-  <button class="btn btn-primary mx-2 rounded-pill" onclick="extractIps()">Extract IPs</button>
-  <br><br>
-  <div class="row">
-    <div class="col-md-8 mx-auto">
-      <p><strong>Result:</strong></p>
-      <textarea id="output-ip" class="form-control" rows="10" readonly></textarea>
-      <p><strong>Count:</strong> <span id="count-ip">0</span></p>
-    </div>
-  </div>
-</div>
-<div id="email-extraction" style="display: none;">
-  <h2>Extract Email Addresses</h2>
-  <p>Paste your text containing email addresses into the box below:</p>
-  <textarea id="input-email" class="form-control" rows="10"></textarea>
-  <br>
-  <button class="btn btn-primary mx-2 rounded-pill" onclick="extractEmails()">Extract Email Addresses</button>
-  <br><br>
-  <div class="row">
-    <div class="col-md-8 mx-auto">
-      <p><strong>Result:</strong></p>
-      <textarea id="output-email" class="form-control" rows="10" readonly></textarea>
-      <p><strong>Count:</strong> <span id="count-email">0</span></p>
-    </div>
-  </div>
-</div>
-<div class="container mt-5" id="email-clean" style="display: none;">
+  <div class="container mt-5" id="ip-extraction" style="display: none;">
+  <h1>Extract IPs/Email</h1>
+  <p>Paste your text containing IP or Email addresses  into the box below:</p>
+  <div class="container mt-5">
       <div class="row">
         <div class="col-md-12">
-          <h2>Drop email list </h2><button  class="btn float-right btn-success" onclick="copyText()">Copy 
+		 
+          <textarea id="text" class="form-control" rows="5"></textarea>
+          <br>
+		 <!--<div class="btn-group" role="group" >-->
+				<center>
+          <div class="btn-group" role="group" aria-label="Basic example">
+
+          <button  class="btn  btn-lg btn-success" onclick="copyText()">Copy 
 		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
 			  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
 			  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
 		  </svg>
 		  </button>
+		  <button  class="btn  btn-lg btn-primary" onclick="download()">Download 
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+			  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+			  <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+			</svg> 
+		  </button>
+    </div>
+      <br>
+      <br>
+          <button class="btn btn-primary btn-lg" onclick="shuffleLines()">Shuffle Lines</button>
+          <button class="btn btn-danger btn-lg" onclick="removeDuplicateLines()">Remove Duplicate Lines</button>
+          <button class="btn btn-success btn-lg" onclick="validateEmails()">Validate Emails</button>
+          <button class="btn btn-secondary btn-lg" onclick="extractAndRemoveDuplicateIP()">Extract IP Addresses</button>
+          <button class="btn btn-warning btn-lg" onclick="extractAndRemoveDuplicateEmails()">Extract Email Addresses</button>
           <br>
-          <textarea id="text" class="form-control" rows="10"></textarea>
-          <br>
-          <button class="btn btn-primary btn-block" onclick="shuffleLines()">Shuffle Lines</button>
-          <br>
-          <button class="btn btn-danger btn-block" onclick="removeDuplicateLines()">Remove Duplicate Lines</button>
-           <br>
-		  <button class="btn btn-success btn-block" onclick="validateEmails()">Validate Emails</button>
-			<br>
           <p id="line-count"></p>
         </div>
       </div>
     </div>
+	 <div class="container">
+      <h1 class="my-4">Random String Generator</h1>
+      <div class="form-group row justify-content-center">
+	 
+     <div class="form-group row justify-content-center">
+		  
+		  <div class="col-sm-12">
+			<div class="form-check form-check-inline">
+			  <input type="checkbox" id="uppercase" class="form-check-input" value="uppercase">
+			  <label for="uppercase" class="form-check-label">Uppercase</label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <input type="checkbox" id="lowercase" class="form-check-input" value="lowercase" checked>
+			  <label for="lowercase" class="form-check-label">Lowercase</label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <input type="checkbox" id="numbers" class="form-check-input" value="numbers" >
+			  <label for="numbers" class="form-check-label">Numbers</label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <input type="checkbox" id="symbols" class="form-check-input" value="symbols">
+			  <label for="symbols" class="form-check-label">Symbols</label>
+			</div>
+			<br>
+			<br>
+			<div class="input-group">
+			  <div class="input-group-prepend">
+				<button class="btn btn-outline-secondary" type="button" id="decrement">-</button>
+			  </div>
+			  <input type="number" id="length" class="form-control text-center" value="25" min="1" max="100">
+			  <div class="input-group-append">
+				<button class="btn btn-outline-secondary" type="button" id="increment">+</button>
+			  </div>
+			</div>
+		  </div>
+		
+	</div>
+      	</div>
+
+      <div class="form-group row">
+        <div class="col-sm-12 text-center">
+          <button id="generate" class="btn btn-primary mr-3">Generate</button>
+        </div>
+      </div>
+	  <div class="input-group mb-3">
+          <input type="text" id="result-GN" class="form-control" readonly>
+		  <div class="input-group-append">
+			<button id="copy" class="btn btn-success">Copy</button>
+		  </div>
+	  </div>
+     
+    </div>
+</div>
 </center>
 	<footer class="bg-light py-3">
 		<div class="container">
@@ -172,81 +196,33 @@
   <script>
     function showSplit() {
     document.getElementById("ip-extraction").style.display = "none";
-    document.getElementById("email-extraction").style.display = "none";
     document.getElementById("home").style.display = "none";
     document.getElementById("split").style.display = "block";
-    document.getElementById("email-clean").style.display = "none";
 
 
   }
 
   function showIp() {
     document.getElementById("ip-extraction").style.display = "block";
-    document.getElementById("email-extraction").style.display = "none";
     document.getElementById("home").style.display = "none";
     document.getElementById("split").style.display = "none";
-    document.getElementById("email-clean").style.display = "none";
 
   }
 
   function showEmail() {
     document.getElementById("ip-extraction").style.display = "none";
-    document.getElementById("email-extraction").style.display = "block";
     document.getElementById("home").style.display = "none";
     document.getElementById("split").style.display = "none";
-    document.getElementById("email-clean").style.display = "none";
 
   }
   function showHome() {
     document.getElementById("ip-extraction").style.display = "none";
-    document.getElementById("email-extraction").style.display = "none";
     document.getElementById("home").style.display = "block";
     document.getElementById("split").style.display = "none";
-    document.getElementById("email-clean").style.display = "none";
 
   }
-  function emailClean() {
-    document.getElementById("ip-extraction").style.display = "none";
-    document.getElementById("email-extraction").style.display = "none";
-    document.getElementById("home").style.display = "none";
-    document.getElementById("split").style.display = "none";
-    document.getElementById("email-clean").style.display = "block";
 
-  }
-  function extractIps() {
-	  const inputText = document.getElementById("input-ip").value;
-	  let ipAddresses = inputText.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g) || [];
-
-	  // Remove duplicates using a Set
-	  ipAddresses = [...new Set(ipAddresses)];
-	  
-	  document.getElementById("output-ip").value = ipAddresses.join('\n');
-	  document.getElementById("count-ip").textContent = ipAddresses.length;
-	  
-	  // Add click event listener to "ips" textarea
-	  const ipsTextArea = document.getElementById("output-ip");
-	  ipsTextArea.addEventListener('click', function() {
-      ipsTextArea.select();
-  });
-
-	  // Clear input textarea
-	  document.getElementById("input-ip").value = "";
-  }
-
-  function extractEmails() {
-      const inputText1 = document.getElementById("input-email").value;
-	  const emails = inputText1.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g) || [];
-
-	  // Remove duplicates using a Set
-	  const uniqueEmails = [...new Set(emails)];
-	  
-	  // Display results in output textarea
-	  document.getElementById("output-email").value = uniqueEmails.join('\n');
-	  document.getElementById("count-email").textContent = uniqueEmails.length;
-
-	  // Clear input textarea
-	  document.getElementById("input-email").value = "";
-  }
+ 
   function splitText() {
 			var splitLine = document.getElementById("split-line").value;
 			var splitNumber = document.getElementById("split-number").value;
@@ -271,7 +247,19 @@
 
 			document.getElementById("result").innerHTML = result;
 		}
-    function shuffleLines() {
+   
+      
+      function countLines() {
+        let text = document.getElementById("text").value;
+        let lines = text.split("\n");
+        document.getElementById("line-count").innerHTML = "Number of lines: " + lines.length;
+      }
+      
+   
+      // Event listeners
+      document.getElementById("text").addEventListener("input", countLines);
+
+      function shuffleLines() {
         let text = document.getElementById("text").value;
         let lines = text.split("\n");
         lines = shuffleArray(lines);
@@ -292,13 +280,7 @@
 		document.getElementById("line-count").innerHTML = "Number of lines: " + lines.length;
 
       }
-      
-      function countLines() {
-        let text = document.getElementById("text").value;
-        let lines = text.split("\n");
-        document.getElementById("line-count").innerHTML = "Number of lines: " + lines.length;
-      }
-      
+          
       function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
@@ -307,7 +289,7 @@
         return array;
       }
       
-      function removeDuplicates(array) {
+    function removeDuplicates(array) {
         return [...new Set(array)];
       }
       function validateEmails() {
@@ -315,10 +297,107 @@
 		  let validEmails = inputText.match(/\b[\w\.-]+@gmail\.com\b/gim);
 		  document.getElementById("text").value = validEmails ? validEmails.join("\n") : "";
 		  document.getElementById("line-count").innerHTML = validEmails ? `Line count: ${validEmails.length}` : "";
-	 }
-      // Event listeners
-      document.getElementById("text").addEventListener("input", countLines);
+    }
+    // Event listeners
+    document.getElementById("text").addEventListener("input", countLines);
+    function extractAndRemoveDuplicateIP() {
+      // Get the input text
+      let inputText = document.getElementById("text").value;
+
+      // Extract IP addresses
+      let ipRegex = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/g;
+      let ipAddresses = inputText.match(ipRegex);
+
+      // Remove duplicates
+      let uniqueIPAddresses = [...new Set(ipAddresses)];
+
+      // Update the output text and line count
+      let outputText = uniqueIPAddresses.join("\n");
+      document.getElementById("text").value = outputText;
+      document.getElementById("line-count").innerHTML = "Number of unique IP addresses: " + uniqueIPAddresses.length;
+    }
+    function extractAndRemoveDuplicateEmails() {
+      // Get the input text
+      let inputText = document.getElementById("text").value;
+
+      // Extract email addresses
+      let emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
+      let emailAddresses = inputText.match(emailRegex);
+
+      // Remove duplicates
+      let uniqueEmailAddresses = [...new Set(emailAddresses)];
+
+      // Update the output text and line count
+      let outputText = uniqueEmailAddresses.join("\n");
+      document.getElementById("text").value = outputText;
+      document.getElementById("line-count").innerHTML = "Number of unique email addresses: " + uniqueEmailAddresses.length;
+    }
+    $(document).ready(function() {
+    $('#generate').click(function() {
+      var length = $('#length').val();
+      var uppercase = $('#uppercase').is(':checked');
+      var lowercase = $('#lowercase').is(':checked');
+      var numbers = $('#numbers').is(':checked');
+      var symbols = $('#symbols').is(':checked');
+      var result = '';
+      var characters = '';
+      if (uppercase) {
+        characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      }
+      if (lowercase) {
+        characters += 'abcdefghijklmnopqrstuvwxyz';
+      }
+      if (numbers) {
+        characters += '0123456789';
+      }
+      if (symbols) {
+        characters += '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
+      }
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      $('#result-GN').val(result);
+      $('#count').text(result.length);
+    });
+
+    $('#copy').click(function() {
+      $('#result-GN').select();
+      document.execCommand('copy');
+    });
+  });
+  $(document).ready(function() {
+    var lengthInput = $('#length');
+    var incrementButton = $('#increment');
+    var decrementButton = $('#decrement');
+
+    incrementButton.click(function() {
+      lengthInput.val(parseInt(lengthInput.val()) + 1);
+    });
+
+    decrementButton.click(function() {
+      lengthInput.val(Math.max(parseInt(lengthInput.val()) - 1, 1));
+    });
+  });
+  function download() {
+    // Get the text from the textarea
+    var text = document.getElementById("text").value;
+    
+    // Create a new Blob object with the text and specify the MIME type
+    var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+    
+    // Create a new URL object pointing to the blob
+    var url = URL.createObjectURL(blob);
+    
+    // Create a new anchor element for the download link
+    var a = document.createElement("a");
+    
+    // Set the download attribute and the URL
+    a.setAttribute("download", "myTextFile.txt");
+    a.setAttribute("href", url);
+    
+    // Click the anchor element to initiate the download
+    a.click();
+  }
 </script>
 </body>
 </html>
-
