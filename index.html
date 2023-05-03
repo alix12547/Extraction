@@ -6,6 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
   <!-- Add custom CSS -->
 <style>
 		body {
@@ -20,14 +23,12 @@
 		}
 
 		.form-control {
-			border: none;
 			border-radius: 0;
 			box-shadow: none;
 			font-size: 1.2rem;
 			color: #212529;
 			background-color: #F8F9FA;
 			resize: none;
-      width: 90%;
 		}
 
 		
@@ -35,62 +36,72 @@
   </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light" >
-			<a class="navbar-brand" href="#">By Achraf</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item active">
-						<a class="nav-link" href="#" onclick="showHome()">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#" onclick="showIp()">Extraction Tool</a>
-					</li>
-          <li class="nav-item">
-						<a class="nav-link" href="#" onclick="showSplit()">Split Email Tool</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" target="_blank" href="https://t.me/Achraf_Abiwi">Contact Us</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-	</header>
-  <center>
-	<main class="container my-5" id="home">
-		<div class="row">
-			<div class="col-md-6">
-				<h1 class="mb-4">IP and Email Extraction Tools</h1>
+	<nav class="navbar navbar-expand-lg  navbar-dark bg-dark" style="background-color: #e3f2fd;">
+		<a class="navbar-brand" href="#">By Achraf</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active">
+					<a class="nav-link" href="#" onclick="showSection('home')">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#" onclick="showSection('ip-extraction')">Extraction Tool</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#" onclick="showSection('split')">Split Email Tool</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" target="_blank" href="https://t.me/Achraf_Abiwi">Contact Us</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</header>
+
+	<main class="container my-5" id="home" >
+				<center><img src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/d12425a2-57e5-445b-896d-425ad79fd2ca/1320655/kpfkogkeyrqpawnjljlr/IMG_1210%20%282%29.JPG" style="height:200px ; width:200px; " alt="Placeholder image" class="rounded-circle rounded-lg">
+          <h1 class="mb-4">IP and Email Extraction Tools</h1>
+        </center>
+      <div class="row">
+    
+				
 				<p class="lead">Hi there! My name is Achraf and I'm the creator of this site. Here, you can find two powerful tools for extracting IP addresses and email addresses from text or URLs.</p>
 				<p>The IP Extraction Tool allows you to extract the IP addresses from any text or URLs you input. This can be useful for cybersecurity professionals, webmasters, or anyone who needs to quickly identify IP addresses.</p>
 				<p>The Email Extraction Tool allows you to extract email addresses from text or URLs. This can be useful for marketing professionals, recruiters, or anyone who needs to collect email addresses from a large amount of text or web pages.</p>
 				<p>Both tools are easy to use and completely free! Simply navigate to the tool you need from the navigation bar above and follow the instructions on the page.</p>
 			</div>
-			<div class="col-md-6">
-				<img src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/d12425a2-57e5-445b-896d-425ad79fd2ca/1320655/kpfkogkeyrqpawnjljlr/IMG_1210%20%282%29.JPG" style="height:500px ; width:400px;" alt="Placeholder image" class="img-fluid">
-			</div>
-		</div>
+			
 	</main>
   <div class="container" id="split" style="display: none;">
-		<div class="row">
-			<div class="col-md-12">
-				<h1>News Section</h1>
-				<form>
-					<div class="form-group">
-						<label for="split-line">Split Line Textarea:</label>
-						<textarea class="form-control" id="split-line" rows="3"></textarea>
-					</div>
-					<div class="form-group">
-						<label for="split-number">Split into:</label>
-						<input type="number" class="form-control" id="split-number" value="1">
-					</div>
-				</form>
-				<button type="button" class="btn btn-primary" onclick="splitText()">Split Text</button>
-				<div id="result"></div>
+      <h1>Split Text</h1>
+      <form>
+        <div class="form-group">
+          <label for="input-text">Input Text:</label>
+          <textarea class="form-control col-12 mt-2" id="input-text" rows="8"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="length">Number of Sections:</label>
+          <div class="input-group">
+			  <div class="input-group-prepend">
+				    <button class="btn btn-outline-secondary" type="button" id="decrements">-</button>
+			  </div>
+			       <input type="number" id="lengths" class="form-control text-center" value="1" min="1" max="100">
+			  <div class="input-group-append">
+				    <button class="btn btn-outline-secondary" type="button" id="increments">+</button>
+			  </div>
 			</div>
-		</div>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="even-sections">
+          <label class="form-check-label" for="even-sections">Even Sections</label>
+        </div>
+        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="splitText()">Split</button>
+      </form>
+      <hr>
+      <h2>Output:</h2>
+      <div id="output-container"></div>
 	</div>
   <div class="container mt-5" id="ip-extraction" style="display: none;">
   <h1>Extract IPs/Email</h1>
@@ -122,9 +133,19 @@
       <br>
           <button class="btn btn-primary btn-lg" onclick="shuffleLines()">Shuffle Lines</button>
           <button class="btn btn-danger btn-lg" onclick="removeDuplicateLines()">Remove Duplicate Lines</button>
-          <button class="btn btn-success btn-lg" onclick="validateEmails()">Validate Emails</button>
+          <div class="dropdown d-inline">
+            <button class="btn btn-success dropdown-toggle  btn-lg" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Extract Emails
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" onclick="extractEmails()">Email Only</a></li>
+              <li><a class="dropdown-item" href="#" onclick="extractGmail()">Gmail</a></li>
+              <li><a class="dropdown-item" href="#" onclick="extractYahoo()">Yahoo</a></li>
+              <li><a class="dropdown-item" href="#" onclick="extractHotmail()">Hotmail</a></li>	
+              <li><a class="dropdown-item" href="#" onclick="extractEmailAndPassword()">Email and Password</a></li>		  
+            </ul>
+          </div>
           <button class="btn btn-secondary btn-lg" onclick="extractAndRemoveDuplicateIP()">Extract IP Addresses</button>
-          <button class="btn btn-warning btn-lg" onclick="extractAndRemoveDuplicateEmails()">Extract Email Addresses</button>
           <br>
           <p id="line-count"></p>
         </div>
@@ -157,11 +178,11 @@
 			<br>
 			<div class="input-group">
 			  <div class="input-group-prepend">
-				<button class="btn btn-outline-secondary" type="button" id="decrement">-</button>
+				    <button class="btn btn-outline-secondary" type="button" id="decrement">-</button>
 			  </div>
-			  <input type="number" id="length" class="form-control text-center" value="25" min="1" max="100">
+			       <input type="number" id="length" class="form-control text-center" value="25" min="1" max="100">
 			  <div class="input-group-append">
-				<button class="btn btn-outline-secondary" type="button" id="increment">+</button>
+				    <button class="btn btn-outline-secondary" type="button" id="increment">+</button>
 			  </div>
 			</div>
 		  </div>
@@ -184,69 +205,116 @@
     </div>
 </div>
 </center>
-	<footer class="bg-light py-3">
-		<div class="container">
-			<p class="text-center">&copy; 2023 Achraf. All rights reserved.</p>
-		</div>
-	</footer>
+	<footer class="bg-light py-3" >
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <p class="text-center">&copy; 2023 Achraf. All rights reserved.</p>
+
+  </div>
+</footer>
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+  <!-- Font Awesome JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
   <script>
-    function showSplit() {
-    document.getElementById("ip-extraction").style.display = "none";
-    document.getElementById("home").style.display = "none";
-    document.getElementById("split").style.display = "block";
-
-
+    function showSection(sectionId) {
+    var sections = ["home", "ip-extraction", "split"];
+    sections.forEach(function(item) {
+      document.getElementById(item).style.display = (item === sectionId) ? "block" : "none";
+    });
   }
 
-  function showIp() {
-    document.getElementById("ip-extraction").style.display = "block";
-    document.getElementById("home").style.display = "none";
-    document.getElementById("split").style.display = "none";
+  document.getElementById("input-text").value = "";
 
-  }
-
-  function showEmail() {
-    document.getElementById("ip-extraction").style.display = "none";
-    document.getElementById("home").style.display = "none";
-    document.getElementById("split").style.display = "none";
-
-  }
-  function showHome() {
-    document.getElementById("ip-extraction").style.display = "none";
-    document.getElementById("home").style.display = "block";
-    document.getElementById("split").style.display = "none";
-
-  }
-
- 
   function splitText() {
-			var splitLine = document.getElementById("split-line").value;
-			var splitNumber = document.getElementById("split-number").value;
-			var lines = splitLine.split('\n');
-			var result = '';
-			var count = 1;
-			var textareaHTML = '<div class="form-group"><label for="textarea">Textarea {{count}}:</label><textarea class="form-control" id="textarea{{count}}" rows="3"></textarea></div>';
-			var i = 0;
+      const inputText = document.getElementById("input-text").value;
+      const sectionCount = parseInt(document.getElementById("lengths").value);
+      const evenSections = document.getElementById("even-sections").checked;
+      const outputContainer = document.getElementById("output-container");
 
-			while (i < lines.length) {
-				var linesPerTextarea = Math.ceil((lines.length - i) / splitNumber);
-				var line = lines.slice(i, i + linesPerTextarea).join('\n');
-				result += line + '\n';
-				count++;
-				i += linesPerTextarea;
-			}
+      // Clear any previous output
+      outputContainer.innerHTML = "";
 
-			for (var j = count; j <= splitNumber; j++) {
-				var textarea = textareaHTML.replace(/{{count}}/g, j);
-				result += textarea;
-			}
+      // Check for invalid input
+      if (inputText.trim() === "") {
+        outputContainer.innerHTML = `
+          <div class="alert alert-danger" role="alert">
+            Please enter some text.
+          </div>
+        `;
+        return;
+      }
 
-			document.getElementById("result").innerHTML = result;
-		}
+      if (isNaN(sectionCount) || sectionCount < 1) {
+        outputContainer.innerHTML = `
+          <div class="alert alert-danger" role="alert">
+            Please enter a valid number of sections.
+          </div>
+        `;
+        return;
+      }
+
+      const inputLines = inputText.split("\n");
+      const inputLineCount = inputLines.length;
+
+      if (inputLineCount < sectionCount) {
+        outputContainer.innerHTML = `
+          <div class="alert alert-danger" role="alert">
+            The number of sections is greater than the number of lines in the input text.
+          </div>
+        `;
+        return;
+      }
+
+      let outputLines = [];
+      let sectionSize = Math.floor(inputLineCount / sectionCount);
+      let remainingLines = inputLineCount % sectionCount;
+      let currentLineIndex = 0;
+      let copyButtonCounter = 1;
+
+      for (let i = 0; i < sectionCount; i++) {
+        let currentSectionSize = sectionSize;
+        if (evenSections && remainingLines > 0) {
+          currentSectionSize++;
+          remainingLines--;
+        }
+
+        let sectionLines = inputLines.slice(currentLineIndex, currentLineIndex + currentSectionSize);
+        currentLineIndex += currentSectionSize;
+
+       // Create a new textarea element for this section
+        let outputTextarea = document.createElement("textarea");
+        outputTextarea.classList.add("form-control", "mt-2");
+
+        //outputTextarea.setAttribute("hidden", "true");
+
+       outputTextarea.rows =1;
+        outputTextarea.value = sectionLines.join("\n");
+
+
+        // Create a new "Copy" button for this textarea
+        let copyButton = document.createElement("button");
+        copyButton.classList.add("btn", "btn-primary", "my-2");
+        copyButton.textContent = "Copy " + copyButtonCounter;
+        copyButton.addEventListener("click", function() {
+          outputTextarea.select();
+          document.execCommand("copy");
+        });
+
+        // Increment the copy button counter for the next button
+        copyButtonCounter++;
+
+        // Create a new div to hold the textarea and button
+        let div = document.createElement("div");
+        div.classList.add("input-group","mb-2");
+        div.appendChild(outputTextarea);
+        div.appendChild(copyButton);
+
+        // Append the div to the output container
+        outputContainer.appendChild(div);
+      }
+}
    
       
       function countLines() {
@@ -277,7 +345,7 @@
         let lines = text.split("\n").map(line => line.trim());
         lines = removeDuplicates(lines);
         document.getElementById("text").value = lines.join("\n");
-		document.getElementById("line-count").innerHTML = "Number of lines: " + lines.length;
+		    document.getElementById("line-count").innerHTML = "Number of lines: " + lines.length;
 
       }
           
@@ -292,12 +360,6 @@
     function removeDuplicates(array) {
         return [...new Set(array)];
       }
-      function validateEmails() {
-		  let inputText = document.getElementById("text").value;
-		  let validEmails = inputText.match(/\b[\w\.-]+@gmail\.com\b/gim);
-		  document.getElementById("text").value = validEmails ? validEmails.join("\n") : "";
-		  document.getElementById("line-count").innerHTML = validEmails ? `Line count: ${validEmails.length}` : "";
-    }
     // Event listeners
     document.getElementById("text").addEventListener("input", countLines);
     function extractAndRemoveDuplicateIP() {
@@ -330,8 +392,72 @@
       // Update the output text and line count
       let outputText = uniqueEmailAddresses.join("\n");
       document.getElementById("text").value = outputText;
-      document.getElementById("line-count").innerHTML = "Number of unique email addresses: " + uniqueEmailAddresses.length;
     }
+    function extractEmails() {
+      var inputText = document.getElementById("text").value;
+      var regex = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
+      var emails = inputText.match(regex);
+      var uniqueEmails = removeDuplicates(emails);
+      var sortedEmails = sortEmailsByDomain(uniqueEmails);
+      document.getElementById("text").value = sortedEmails.join("\n");
+    }
+
+    function extractEmailAndPassword() {
+      var inputText = document.getElementById("text").value;
+      var regex = /([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}):([A-Za-z0-9]+)/g;
+      var emailAndPasswords = inputText.match(regex);
+      var uniqueEmailAndPasswords = removeDuplicates(emailAndPasswords);
+      var sortedEmailAndPasswords = sortEmailsByDomain(uniqueEmailAndPasswords);
+      document.getElementById("text").value = sortedEmailAndPasswords.join("\n");
+    }
+
+    function extractGmail() {
+      var inputText = document.getElementById("text").value;
+      var regex = /[A-Za-z0-9._%+-]+@gmail\.com/g;
+      var gmailEmails = inputText.match(regex);
+      var uniqueGmailEmails = removeDuplicates(gmailEmails);
+      document.getElementById("text").value = uniqueGmailEmails.join("\n");
+    }
+
+    function extractYahoo() {
+      var inputText = document.getElementById("text").value;
+      var regex = /[A-Za-z0-9._%+-]+@yahoo\.com/g;
+      var yahooEmails = inputText.match(regex);
+      var uniqueYahooEmails = removeDuplicates(yahooEmails);
+      document.getElementById("text").value = uniqueYahooEmails.join("\n");
+    }
+
+    function extractHotmail() {
+      var inputText = document.getElementById("text").value;
+      var regex = /[A-Za-z0-9._%+-]+@hotmail\.com/g;
+      var hotmailEmails = inputText.match(regex);
+      var uniqueHotmailEmails = removeDuplicates(hotmailEmails);
+      document.getElementById("text").value = uniqueHotmailEmails.join("\n");
+    }
+
+    function sortEmailsByDomain(emails) {
+      return emails.sort(function(a, b) {
+        var domainA = a.substring(a.lastIndexOf("@") + 1).toLowerCase();
+        var domainB = b.substring(b.lastIndexOf("@") + 1).toLowerCase();
+        if (domainA < domainB) return -1;
+        if (domainA > domainB) return 1;
+        return 0;
+      });
+    }
+
+    function removeDuplicates(emails) {
+      document.getElementById("text").value='';
+      document.getElementById("line-count").innerHTML = "Number of Email addresses: 0"
+      var uniqueEmails = [];
+      emails.forEach(function(email) {
+        if (!uniqueEmails.includes(email)) {
+          uniqueEmails.push(email);
+        }
+      });
+      document.getElementById("line-count").innerHTML = "Number of Email addresses: " + uniqueEmails.length;
+      return uniqueEmails;
+    }
+
     $(document).ready(function() {
     $('#generate').click(function() {
       var length = $('#length').val();
@@ -378,6 +504,19 @@
       lengthInput.val(Math.max(parseInt(lengthInput.val()) - 1, 1));
     });
   });
+  $(document).ready(function() {
+    var lengthInput = $('#lengths');
+    var incrementButton = $('#increments');
+    var decrementButton = $('#decrements');
+
+    incrementButton.click(function() {
+      lengthInput.val(parseInt(lengthInput.val()) + 1);
+    });
+
+    decrementButton.click(function() {
+      lengthInput.val(Math.max(parseInt(lengthInput.val()) - 1, 1));
+    });
+  });
   function download() {
     // Get the text from the textarea
     var text = document.getElementById("text").value;
@@ -398,6 +537,9 @@
     // Click the anchor element to initiate the download
     a.click();
   }
+ 
+
 </script>
 </body>
 </html>
+
